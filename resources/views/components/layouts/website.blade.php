@@ -22,43 +22,35 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a wire:navigate class="navbar-brand" href="{{ route('index') }}"><img
+                        <a class="navbar-brand" href="{{ route('index') }}"><img
                                 src="{{ asset('website/assets/images/logo.png') }}" alt></a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse navigation-holder">
                         <button class="close-navbar"><i class="ti-close"></i></button>
                         <ul class="nav navbar-nav">
-                            <li><a wire:navigate href="{{ route('index') }}">Home</a></li>
-                            <li><a wire:navigate href="{{ route('about') }}">About</a></li>
-                            <li><a wire:navigate href="{{ route('services') }}">Services</a></li>
-                            <li><a wire:navigate href="{{ route('shop') }}">Shop</a></li>
-                            <li><a wire:navigate href="">Reviews</a></li>
-                            <li><a wire:navigate href="{{ route('cart') }}">Cart</a></li>
-                            <li><a wire:navigate href="{{ route('contact') }}">Contact</a></li>
+                            <li><a href="{{ route('index') }}">Home</a></li>
+                            <li><a href="{{ route('about') }}">About</a></li>
+                            <li><a href="{{ route('services') }}">Services</a></li>
+                            <li><a href="{{ route('shop') }}">Shop</a></li>
+                            <li><a href="">Reviews</a></li>
+                            <li><a href="{{ route('cart') }}">Cart</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div><!-- end of nav-collapse -->
 
                     <div class="search-contact">
-                        <div class="header-search-area">
-                            <div class="header-search-form">
-                                <form class="form">
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="Search here">
-                                    </div>
-                                    <button type="submit" class="btn"><i class="ti-search"></i></button>
-                                </form>
-                            </div>
-                            <div>
-                                <button class="btn open-btn"><i class="ti-search"></i></button>
-                            </div>
-                        </div>
+                        
                         <div class="contact">
                             <div class="call">
                                 <i class="fi flaticon-call"></i>
                                 <p>Call us anytime</p>
                                 <h5>+65487441584</h5>
                             </div>
-                            <a wire:navigate href="{{ route('user.login') }}" class="theme-btn">Login / register</a>
+                            @if (Auth::check())
+                                <a href="{{ route('user.dashboard') }}" class="theme-btn">Dashboard</a>
+                            @else
+                                <a href="{{ route('user.login') }}" class="theme-btn">Login / register</a>
+                            @endif
                         </div>
                     </div>
                 </div><!-- end of container -->

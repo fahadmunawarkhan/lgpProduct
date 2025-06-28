@@ -37,6 +37,8 @@ class SingleProduct extends Component
 
         $this->cart = $cart;
         session()->put('cart', $cart);
+        session()->flash('success', 'Item Added Successfully');
+
         // $this->dispatchBrowserEvent('cart-updated');
     }
 

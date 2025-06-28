@@ -22,74 +22,170 @@
             padding: 20px;
             border-radius: 0.5rem;
         }
+
+        .invalid-feedback {
+            color: red;
+        }
+
+        .col-md-6.mb-3 {
+            margin-top: 12px;
+        }
     </style>
 
 
 
 
-    <div class="container py-5">
-        <h2 class="mb-4">Checkout</h2>
+    <div class="container py-5" style="margin-top: 50px; margin-bottom:50px;">
         <div class="row">
-
             <!-- Billing Details -->
             <div class="col-md-7">
-                <h5 class="mb-3">Billing Details</h5>
-                <form>
-                    <div class="mb-3">
-                        <label for="fullname" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullname" placeholder="John Doe">
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="123 Main St">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="zip" class="form-label">ZIP Code</label>
-                            <input type="text" class="form-control" id="zip">
-                        </div>
-                    </div>
+                @endif
 
-                    <h5 class="mt-4">Payment</h5>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="credit" checked>
-                        <label class="form-check-label" for="credit">Credit Card</label>
+                @if (Auth::check())
+                    @if (auth()->user())
+                        <div class="col-md-12">
+                            <div class="card shadow-sm rounded">
+                                <div class="card-header text-white">
+                                    <h2 class="mb-0">Billing Details</h2>
+                                </div>
+                                <div class="card-body" style="margin-top: 20px; margin-bottom:20px;">
+                                    <form wire:submit.prevent="placeOrder">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Full Name</label>
+                                                <input type="text" wire:model.lazy="full_name"
+                                                    class="form-control @error('full_name') is-invalid @enderror"
+                                                    placeholder="John Doe">
+                                                @error('full_name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" wire:model.lazy="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    placeholder="email@example.com">
+                                                @error('email')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Phone Number</label>
+                                                <input type="text" wire:model.lazy="phone"
+                                                    class="form-control @error('phone') is-invalid @enderror"
+                                                    placeholder="03xx-xxxxxxx">
+                                                @error('phone')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Delivery Date</label>
+                                                <input type="date" wire:model.lazy="date"
+                                                    class="form-control @error('date') is-invalid @enderror">
+                                                @error('date')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="paymenttype" class="form-label">Payment Type</label>
+                                                <select wire:model.lazy="paymenttype" id="paymenttype"
+                                                    class="form-control @error('paymenttype') is-invalid @enderror">
+                                                    <option value="">Please select</option>
+                                                    <option value="online">Online</option>
+                                                    <option value="cod">Cash on Delivery</option>
+                                                </select>
+                                                @error('paymenttype')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="mb-3" style="margin-top: 12px">
+                                            <label class="form-label">Shipping Address</label>
+                                            <textarea wire:model.lazy="address" rows="3" class="form-control @error('address') is-invalid @enderror"
+                                                placeholder="Street, City, Zip"></textarea>
+                                            @error('address')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <!-- Notes section as a full-width field -->
+                                        <div class="mb-3" style="margin-top: 12px">
+                                            <label class="form-label">Notes</label>
+                                            <textarea wire:model.lazy="note" rows="3" class="form-control @error('note') is-invalid @enderror"
+                                                placeholder="Notes"></textarea>
+                                            @error('note')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success w-100 mt-3"
+                                            style="margin-top: 12px">Place Order</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="col-md-5">
+                        <div class="card shadow-sm rounded">
+                            <div class="card-body" style="margin-top: 20px">
+                                <button wire:click="Login()" class="btn btn-primary">Login</button>
+                                <button wire:click="Register()" class="btn btn-primary">Register</button>
+                                @if ($login)
+                                    @livewire('website.auth.login-page')
+                                @else
+                                    @livewire('website.auth.register-page')
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
-                        <label class="form-check-label" for="paypal">PayPal</label>
-                    </div>
-                </form>
+                @endif
             </div>
 
             <!-- Order Summary -->
             <div class="col-md-5">
-                <div class="order-summary shadow-sm">
+                <div class="order-summary shadow-sm p-3 bg-white rounded">
                     <h5 class="mb-3">Your Order</h5>
+
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div>
-                                <h6 class="my-0">Product Name</h6>
-                                <small class="text-muted">Qty: 1</small>
-                            </div>
-                            <span class="text-muted">$25.00</span>
-                        </li>
-                        <!-- Add more items as needed -->
+                        @php $total = 0; @endphp
+
+                        @foreach ($cart as $item)
+                            @php
+                                $subtotal = $item['price'] * $item['quantity'];
+                                $total += $subtotal;
+                            @endphp
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <img style="width: 100px" src="{{ $item['image'] }}" alt="">
+                                    <h6 class="my-0">{{ $item['name'] }}</h6>
+                                    <small class="text-muted">Qty: {{ $item['quantity'] }}</small>
+                                </div>
+                                <span class="text-muted">Rs {{ number_format($subtotal, 0) }}</span>
+                            </li>
+                        @endforeach
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total</span>
-                            <strong>$25.00</strong>
+                            <strong>Rs {{ number_format($total, 0) }}</strong>
                         </li>
                     </ul>
-                    <button class="btn btn-primary w-100">Place Order</button>
+
+                    <button wire:click="placeOrder" class="btn btn-primary w-100">Place Order</button>
                 </div>
+
             </div>
 
         </div>

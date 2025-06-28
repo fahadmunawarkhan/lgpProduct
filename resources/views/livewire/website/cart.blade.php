@@ -1,8 +1,13 @@
 <div>
+  <!-- start page-title -->
     <section class="page-title">
         <div class="container">
-            <h2 class="mb-4">Shopping Cart</h2>
-        </div>
+            <div class="row">
+                <div class="col col-xs-12">
+                    <h2 class="mb-4">Cart</h2>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
     </section>
 
     <style>
@@ -29,7 +34,7 @@
         }
     </style>
 
-    <div class="container py-5" style="margin-top: 50px">
+    <div class="container py-5" style="margin-top: 50px; margin-bottom:50px;">
         {{-- <h2 class="mb-4">Shopping Cart</h2> --}}
 
         <div class="row justify-content-end">
@@ -85,11 +90,11 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Subtotal</span>
-                        <strong>${{ number_format($subtotal, 2) }}</strong>
+                        <strong>Rs {{ number_format($subtotal, 2) }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>${{ number_format($subtotal, 2) }}</strong>
+                        <strong>Rs {{ number_format($subtotal, 2) }}</strong>
                     </li>
                 </ul>
                 @if ($subtotal > 0)

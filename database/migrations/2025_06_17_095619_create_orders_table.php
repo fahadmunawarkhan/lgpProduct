@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('delivery_address');
             $table->string('delivery_date')->nullable();
             $table->text('notes')->nullable();
+            $table->text('product_id')->nullable();
+            $table->text('orderid')->nullable();
             $table->timestamps();
         });
     }

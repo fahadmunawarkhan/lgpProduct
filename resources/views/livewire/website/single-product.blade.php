@@ -38,6 +38,11 @@
 
             <!-- Product Details -->
             <div class="col-md-6" style="display: flow-root;align-content: center;margin-top: 53px;">
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <h2 class="mb-3"><b>Product</b> {{ $product->name }}</h2>
                 <div class="rating mb-2">★★★★☆</div>
                 <p class="text-muted"><b>Category:</b> {{ $product->productcategory->name ?? '' }}</p>
@@ -46,7 +51,9 @@
                     {{ $product->description }}
                 </p>
 
+
                 <form class="mt-4">
+
                     <div class="mb-3">
                         <label for="quantity" class="form-label">Quantity</label>
                         <input type="number" id="quantity" wire:model.lazy="quantity" class="form-control"

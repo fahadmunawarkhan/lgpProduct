@@ -14,6 +14,9 @@ use App\Livewire\Website\Auth\RegisterPage;
 use App\Livewire\Website\Cart;
 use App\Livewire\Website\Checkout;
 use App\Livewire\Website\ContactU;
+use App\Livewire\Website\Dashboard\MyDashboard;
+use App\Livewire\Website\Dashboard\MyOrders;
+use App\Livewire\Website\Dashboard\MyWallet;
 use App\Livewire\Website\IndexHome;
 use App\Livewire\Website\Services;
 use App\Livewire\Website\Shop;
@@ -31,10 +34,14 @@ Route::get('/cart', Cart::class)->name('cart');
 Route::get('/checkout', Checkout::class)->name('checkout');
 Route::get('/product/{id}', SingleProduct::class)->name('single.Product');
 Route::get('/product-checkout/{id}/{quantity}', SingleProductCheckout::class)->name('single.Product.checkout');
+
+
 Route::get('/user-login', LoginPage::class)->name('user.login');
 Route::get('/user-register', RegisterPage::class)->name('user.register');
 
-Route::get('/user-dashboard', RegisterPage::class)->name('user.dashboard');
+Route::get('/user-dashboard', MyDashboard::class)->name('user.dashboard');
+Route::get('/user-orders', MyOrders::class)->name('user.orders');
+Route::get('/user-wallet', MyWallet::class)->name('user.wallet');
 
 
 

@@ -1,9 +1,4 @@
 <div>
-    <section class="page-title">
-        <div class="container">
-            <h2 class="mb-4">Customer Register</h2>
-        </div>
-    </section>
     <style>
         .login-box {
             max-width: 400px;
@@ -19,6 +14,12 @@
 
 
     <div class="login-box" style="margin-top: 50px; margin-bottom:50px;">
+
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <h2 class="text-center mb-4">Register Form</h2>
         <form style="">
             <div class="mb-3" style="margin-top: 20px;">
@@ -32,8 +33,10 @@
             <div class="d-grid mb-3" style="margin-top: 20px;text-align: center;">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
-            <div class="text-center">
+            <div class="text-left">
                 <small><a href="#">Forgot password?</a></small>
+                <br>
+                <small>Your Have Already Account?<a href="#"> Login</a></small>
             </div>
         </form>
     </div>

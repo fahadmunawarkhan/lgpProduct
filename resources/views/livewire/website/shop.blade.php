@@ -27,6 +27,8 @@
             border-radius: 12px;
             background: #fff;
             padding: 19px 0px;
+            height: 410px;
+
         }
 
         /* .product-card:hover {
@@ -60,6 +62,7 @@
         .product-rating {
             color: #ffc107;
             font-size: 0.9rem;
+            margin-bottom: 12px;
         }
 
         .card-body {
@@ -79,52 +82,43 @@
 
     <section style="margin-top: 50px" class="ct-section">
         <div class="container">
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div style="padding: 20px" class="row ">
                 <!-- Sidebar Filter -->
-                <div style="padding: 20px; background: gainsboro" class="col-md-3 mb-4">
+                <div style="padding: 20px;background: gainsboro;height: 100vh;" class="col-md-3 mb-4">
                     <div class="sidebar bg-light p-3 rounded shadow-sm">
                         <h5 class="mb-3">Filters</h5>
 
                         <!-- Search -->
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Search products..." />
+                            <input type="text" wire:model.debounce.500ms="search" class="form-control"
+                                placeholder="Search products..." />
                         </div>
 
                         <!-- Category Filter -->
                         <div class="mb-3">
                             <h6>Category</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="cat1" />
-                                <label class="form-check-label" for="cat1">Electronics</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="cat2" />
-                                <label class="form-check-label" for="cat2">Clothing</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="cat3" />
-                                <label class="form-check-label" for="cat3">Home & Kitchen</label>
-                            </div>
+
+                            @foreach ($productsCategory as $category)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="{{ $category->id }}"
+                                        wire:model="selectedCategories" id="cat{{ $category->id }}" />
+                                    <label class="form-check-label"
+                                        for="cat{{ $category->id }}">{{ $category->name }}</label>
+                                </div>
+                            @endforeach
                         </div>
 
                         <!-- Price Filter -->
                         <div class="mb-3">
                             <h6>Price Range</h6>
-                            <input type="range" class="form-range" min="0" max="1000" />
+                            <input type="range" min="0" max="100000" step="100" wire:model="priceMax" />
                         </div>
 
-                        <!-- Availability -->
-                        <div class="mb-3">
-                            <h6>Availability</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="availability" id="inStock" />
-                                <label class="form-check-label" for="inStock">In Stock</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="availability" id="outStock" />
-                                <label class="form-check-label" for="outStock">Out of Stock</label>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -143,29 +137,32 @@
                     <div class="row g-4" style="margin-top: 50px">
                         <!-- Product Card -->
                         @foreach ($products as $item)
-                            <a href="{{ route('single.Product', ['id' => $item->id]) }}">
-                                <div class="col-md-4 p-4">
-                                    <div class="card product-card shadow-sm">
-                                        <img src="{{ $item->image }}" class="card-img-top" alt="{{ $item->name }}">
-                                        <div class="card-body">
-                                            <h6 class="product-title">{{ $item->name }}</h6>
-                                            <div class="product-price">Rs {{ number_format($item->price) }}</div>
-                                            <div class="product-rating mb-2">★★★★☆</div>
+                            <div class="col-md-4 p-4">
+                                <div class="card product-card shadow-sm">
+                                    <img src="{{ $item->image }}" class="card-img-top" alt="{{ $item->name }}">
+                                    <div class="card-body">
+                                        <h6 class="product-title">{{ $item->name }}</h6>
+                                        <div class="product-price">Rs {{ number_format($item->price) }}</div>
+                                        <div class="product-rating mb-2">★★★★☆</div>
 
-                                            <button class="btn btn-sm btn-success w-100 gap-10"
-                                                wire:click="add({{ $item->id }})">
-                                                Buy Now
-                                            </button>
+                                        <a class="btn btn-sm btn-success w-100 gap-10"
+                                            href="{{ route('single.Product', ['id' => $item->id]) }}">
+                                            View
+                                        </a>
 
-                                            <button class="btn btn-sm btn-success w-100"
-                                                wire:click="add({{ $item->id }})">
-                                                Add to Cart
-                                            </button>
+                                        <button class="btn btn-sm btn-success w-100 gap-10"
+                                            wire:click="buyNow({{ $item->id }})">
+                                            Buy Now
+                                        </button>
 
-                                        </div>
+                                        <button class="btn btn-sm btn-success w-100"
+                                            wire:click="add({{ $item->id }})">
+                                            Add to Cart
+                                        </button>
+
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         @endforeach
 
                     </div>

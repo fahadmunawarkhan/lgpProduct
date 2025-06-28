@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="irstheme">
 
-    <title> Dustech - Industry & Factory HTML Template </title>
+    <title>Gass </title>
 
     <link href="{{ asset('website/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('website/assets/css/flaticon.css') }}" rel="stylesheet">
