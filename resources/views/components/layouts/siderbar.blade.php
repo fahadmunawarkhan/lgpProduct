@@ -74,71 +74,108 @@
                  <nav id="left-sidebar-nav" class="sidebar-nav">
                      <ul id="main-menu" class="metismenu" wire:ignore>
 
-                         <li
-                             class="{{ request()->routeIs('admin.product.category', 'admin.list.product') ? 'active' : '' }}">
-                             <a href="#Dashboard" class="has-arrow">
-                                 <i class="icon-home"></i>
-                                 <span>Products Info</span>
-                             </a>
-                             <ul>
-                                 <li class="{{ request()->routeIs('admin.product.category') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.product.category') }}"
-                                         class="{{ request()->routeIs('admin.product.category') ? 'active' : '' }}">
-                                         Products Category
-                                     </a>
-                                 </li>
-                                 <li class="{{ request()->routeIs('admin.list.product') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.list.product') }}"
-                                         class="{{ request()->routeIs('admin.list.product') ? 'active' : '' }}">
-                                         Products/Stocks
-                                     </a>
-                                 </li>
-                             </ul>
-                         </li>
+                         @canany(['manage.product.category', 'manage.product.list'])
+                             <li
+                                 class="{{ request()->routeIs('admin.product.category', 'admin.list.product') ? 'active' : '' }}">
+                                 <a href="#Dashboard" class="has-arrow">
+                                     <i class="icon-home"></i>
+                                     <span>Products Info</span>
+                                 </a>
+                                 <ul>
+                                     @can('manage.product.category')
+                                         <li class="{{ request()->routeIs('admin.product.category') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.product.category') }}">
+                                                 Products Category
+                                             </a>
+                                         </li>
+                                     @endcan
 
-                         <li
-                             class="{{ request()->routeIs('admin.create.customers', 'admin.customers') ? 'active' : '' }}">
-                             <a href="#Dashboard" class="has-arrow">
-                                 <i class="icon-home"></i>
-                                 <span>Customer Info</span>
-                             </a>
-                             <ul>
-                                 <li class="{{ request()->routeIs('admin.create.customers') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.create.customers') }}"
-                                         class="{{ request()->routeIs('admin.create.customers') ? 'active' : '' }}">
-                                         Create Customer
-                                     </a>
-                                 </li>
-                                 <li class="{{ request()->routeIs('admin.customers') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.customers') }}"
-                                         class="{{ request()->routeIs('admin.customers') ? 'active' : '' }}">
-                                         Manage Customer
-                                     </a>
-                                 </li>
-                             </ul>
-                         </li>
+                                     @can('manage.product.list')
+                                         <li class="{{ request()->routeIs('admin.list.product') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.list.product') }}">
+                                                 Products/Stocks
+                                             </a>
+                                         </li>
+                                     @endcan
+                                 </ul>
+                             </li>
+                         @endcanany
 
-                         <li
-                             class="{{ request()->routeIs('admin.create.employee', 'admin.employee') ? 'active' : '' }}">
-                             <a href="#Dashboard" class="has-arrow">
-                                 <i class="icon-home"></i>
-                                 <span>Employee</span>
-                             </a>
-                             <ul>
-                                 <li class="{{ request()->routeIs('admin.create.employee') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.create.employee') }}"
-                                         class="{{ request()->routeIs('admin.create.employee') ? 'active' : '' }}">
-                                         Create Employee
-                                     </a>
-                                 </li>
-                                 <li class="{{ request()->routeIs('admin.employee') ? 'active' : '' }}">
-                                     <a wire:navigate href="{{ route('admin.employee') }}"
-                                         class="{{ request()->routeIs('admin.employee') ? 'active' : '' }}">
-                                         Manage Employee
-                                     </a>
-                                 </li>
-                             </ul>
-                         </li>
+
+                         @canany(['create.customers', 'view.customers'])
+                             <li
+                                 class="{{ request()->routeIs('admin.create.customers', 'admin.customers') ? 'active' : '' }}">
+                                 <a href="#Dashboard" class="has-arrow">
+                                     <i class="icon-home"></i>
+                                     <span>Customer Info</span>
+                                 </a>
+                                 <ul>
+                                     @can('create.customers')
+                                         <li class="{{ request()->routeIs('admin.create.customers') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.create.customers') }}">
+                                                 Create Customer
+                                             </a>
+                                         </li>
+                                     @endcan
+                                     @can('view.customers')
+                                         <li class="{{ request()->routeIs('admin.customers') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.customers') }}">
+                                                 Manage Customer
+                                             </a>
+                                         </li>
+                                     @endcan
+                                 </ul>
+                             </li>
+                         @endcanany
+
+                         @canany(['create.employee', 'manage.employees'])
+                             <li
+                                 class="{{ request()->routeIs('admin.create.employee', 'admin.employee') ? 'active' : '' }}">
+                                 <a href="#Dashboard" class="has-arrow">
+                                     <i class="icon-home"></i>
+                                     <span>Employee</span>
+                                 </a>
+                                 <ul>
+                                     @can('create.employee')
+                                         <li class="{{ request()->routeIs('admin.create.employee') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.create.employee') }}">
+                                                 Create Employee
+                                             </a>
+                                         </li>
+                                     @endcan
+                                     @can('manage.employees')
+                                         <li class="{{ request()->routeIs('admin.employee') ? 'active' : '' }}">
+                                             <a wire:navigate href="{{ route('admin.employee') }}">
+                                                 Manage Employee
+                                             </a>
+                                         </li>
+                                     @endcan
+                                 </ul>
+                             </li>
+                         @endcanany
+
+
+                         @can('manage.roles')
+                             <li class="{{ request()->routeIs('admin.manage.role') ? 'active' : '' }}">
+                                 <a href="#Dashboard" class="has-arrow">
+                                     <i class="icon-home"></i>
+                                     <span>HRM</span>
+                                 </a>
+                                 <ul>
+                                     <li class="{{ request()->routeIs('admin.add.role') ? 'active' : '' }}">
+                                         <a wire:navigate href="{{ route('admin.add.role') }}">
+                                             Add Roles
+                                         </a>
+                                     </li>
+                                      <li class="{{ request()->routeIs('admin.manage.role') ? 'active' : '' }}">
+                                         <a wire:navigate href="{{ route('admin.manage.role') }}">
+                                             Manage Roles
+                                         </a>
+                                     </li>
+                                 </ul>
+                             </li>
+                         @endcan
+
                      </ul>
                  </nav>
              </div>

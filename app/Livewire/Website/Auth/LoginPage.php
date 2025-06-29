@@ -10,21 +10,22 @@ class LoginPage extends Component
     #[Layout('components.layouts.websiteAuth')]
 
     public string $email = '';
-public string $password = '';
+    public string $password = '';
 
-public function login()
-{
-    $this->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:6',
-    ]);
+    public function login()
+    {
+        $this->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
 
-    if (auth()->attempt(['email' => $this->email, 'password' => $this->password])) {
-        session()->flash('message', 'Login successful!');
+        if (auth()->attempt(['email' => $this->email, 'password' => $this->password])) {
+            session()->flash('success', 'Login successful!');
+        } else {
+
+            session()->flash('error', 'Invalid credentials.');
+        }
     }
-
-    session()->flash('error', 'Invalid credentials.');
-}
 
     public function render()
     {

@@ -17,6 +17,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <h2 class="text-center mb-4">Login Form</h2>
         <form wire:submit.prevent="login">
             <div class="mb-3" style="margin-top: 20px;">
@@ -35,7 +40,7 @@
             <div class="text-left">
                 <small><a href="#">Forgot password?</a></small>
                 <br>
-                <small>Don't have an account? <a href="#">Register</a></small>
+                <small>Don't have an account? <a href="{{ route('user.register') }}">Register</a></small>
             </div>
         </form>
     </div>

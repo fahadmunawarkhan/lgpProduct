@@ -14,10 +14,10 @@
                  <ul class="nav navbar-nav">
 
                      <li>
-                         <a href="app-chat.html" class="icon-menu d-none d-sm-block"><i class="icon-bubbles"></i></a>
+                         <a href="{{ route('admin.manage.chat') }}" class="icon-menu d-none d-sm-block"><i class="icon-bubbles"></i></a>
                      </li>
                      <li>
-                         <a href="app-inbox.html" class="icon-menu d-none d-sm-block"><i class="icon-envelope"></i><span
+                         <a href="{{ route('') }}" class="icon-menu d-none d-sm-block"><i class="icon-envelope"></i><span
                                  class="notification-dot"></span></a>
                      </li>
                      <li class="dropdown">

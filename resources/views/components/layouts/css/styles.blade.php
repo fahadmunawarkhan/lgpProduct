@@ -26,5 +26,6 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/sweetalert/sweetalert.css')}}"/>
 
+    <link rel="stylesheet" href="{{ asset('assets/css/chatapp.css') }}">
     @livewireStyles
 </head>

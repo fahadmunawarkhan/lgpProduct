@@ -46,13 +46,10 @@
                         <ul class="nav navbar-nav">
 
                             <li>
-                                <a href="app-chat.html" class="icon-menu d-none d-sm-block"><i
+                                <a href="{{ route('admin.manage.chat') }}" class="icon-menu d-none d-sm-block"><i
                                         class="icon-bubbles"></i></a>
                             </li>
-                            <li>
-                                <a href="app-inbox.html" class="icon-menu d-none d-sm-block"><i
-                                        class="icon-envelope"></i><span class="notification-dot"></span></a>
-                            </li>
+                           
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                     <i class="icon-bell"></i>
@@ -130,7 +127,7 @@
             </div>
         </nav>
 
-       <x-layouts.siderbar/>
+        <x-layouts.siderbar />
 
         <div id="main-content">
             {{ $slot }}

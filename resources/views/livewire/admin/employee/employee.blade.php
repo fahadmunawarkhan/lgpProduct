@@ -145,9 +145,9 @@
 
                                 <div class="row">
                                     @foreach ([
-        'employee_password' => 'Employee Password',
-        'employee_c_password' => 'Employee Confirm Password',
-    ] as $field => $label)
+                                            'employee_password' => 'Employee Password',
+                                            'employee_c_password' => 'Employee Confirm Password',
+                                        ] as $field => $label)
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>{{ $label }}</label>
@@ -182,7 +182,8 @@
                     <div class="modal-content h-100 profileDetail">
                         <div class="modal-header">
                             <h5 class="modal-title">Employe Detail</h5>
-                            <button type="button" class="btn-close" wire:click="$set('showModalSingle', false)"></button>
+                            <button type="button" class="btn-close"
+                                wire:click="$set('showModalSingle', false)"></button>
                         </div>
                         <div class="modal-body overflow-auto">
                             <div class="text-center mb-3">

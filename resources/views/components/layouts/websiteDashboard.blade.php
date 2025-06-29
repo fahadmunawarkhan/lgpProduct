@@ -69,6 +69,11 @@
                             class="{{ request()->routeIs('user.wallet') ? 'active' : '' }}">
                             <i class="bi bi-wallet2"></i> Wallet
                         </a>
+
+                         <a href="{{ route('user.chat') }}"
+                            class="{{ request()->routeIs('user.chat') ? 'active' : '' }}">
+                            <i class="bi bi-wallet2"></i> Chats
+                        </a>
                     </div>
 
                 </div>
